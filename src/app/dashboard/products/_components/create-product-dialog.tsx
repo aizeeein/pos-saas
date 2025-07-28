@@ -28,6 +28,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createProduct } from "@/lib/api/products";
 import { useRouter } from "next/navigation";
 import ImageUpload from "./image-upload";
+import { ProductForms } from "./product-form";
 
 const CreateProductDialog = () => {
   const queryClient = useQueryClient();
@@ -83,72 +84,7 @@ const CreateProductDialog = () => {
           <DialogTitle className="py-6 flex justify-center items-center font-bold text-2xl">
             Create New Product
           </DialogTitle>
-          <div>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-8 w-full"
-              >
-                <FormField
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Product Name</FormLabel>
-                      <FormControl>
-                        <Input disabled={isPending} {...field} />
-                      </FormControl>
-
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  name="price"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Harga Produk</FormLabel>
-                      <FormControl>
-                        <Input disabled={isPending} {...field} type="number" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  name="stock"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Stok Produk</FormLabel>
-                      <FormControl>
-                        <Input disabled={isPending} {...field} type="number" />
-                      </FormControl>
-
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  name="image"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Foto Produk</FormLabel>
-                      <FormControl>
-                        <ImageUpload
-                          disabled={isPending}
-                          value={field.value ? field.value : ""}
-                          onChange={(url) => field.onChange(url)}
-                        />                
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button disabled={isPending} type="submit" className="w-full">
-                  Create Product
-                </Button>
-              </form>
-            </Form>
-          </div>
+          <ProductForms />
         </DialogContent>
       </Dialog>
     </div>

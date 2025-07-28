@@ -16,16 +16,6 @@ interface ProductProps {
 }
 
 const ProductCard = () => {
-  // const { data, isLoading } = useQuery({
-  //   queryKey: ["products"],
-  //   queryFn: async () => {
-  //     const res = await fetch("/api/products");
-
-  //     if (!res.ok) throw new Error("Failed to fetch products");
-  //     return res.json();
-  //   },
-  // });
-
   const productQuery = useGetProducts();
   const products = productQuery.data || [];
 
@@ -39,9 +29,12 @@ const ProductCard = () => {
     );
   }
   return (
-    <div className="grid grid-cols-4 gap-6">
+    <div className="grid grid-cols-4 md:grid-cols-2 lg:grid-cols-6 gap-6">
       {products.map((product: ProductProps) => (
-        <Card key={product.id} className="group cursor-pointer hover:shadow-lg transition-all duration-300 border-0 shadow-sm">
+        <Card
+          key={product.id}
+          className="group cursor-pointer hover:shadow-lg transition-all duration-300 border-0 shadow-sm"
+        >
           <CardContent className="p-0">
             <div className="relative w-full h-48 overflow-hidden">
               <Image
