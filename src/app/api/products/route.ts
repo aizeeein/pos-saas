@@ -2,7 +2,7 @@ import { db } from "@/db/db";
 import { auth } from "@/lib/auth";
 import { getCurrentUser } from "@/lib/auth/get-current-user";
 import { product } from "@/schema";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
@@ -54,7 +54,8 @@ export async function GET(req: NextRequest) {
     const products = await db
       .select()
       .from(product)
-      .where(eq(product.userId, user.id));
+      .where(eq(product.userId, user.id))
+      .orderBy(desc(product.createdAt));
 
     return NextResponse.json(products, { status: 200 });
   } catch (err: any) {

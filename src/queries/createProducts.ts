@@ -9,7 +9,7 @@ export const createProduct = async (data: {
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: "include", // biar cookie auth (misal BetterAuth) ikut terkirim
+    credentials: "include", // Include credentials for session management
     body: JSON.stringify(data),
   });
 

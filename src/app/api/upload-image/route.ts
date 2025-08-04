@@ -1,15 +1,17 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { put } from '@vercel/blob'
+import { NextRequest, NextResponse } from "next/server";
+import { put } from "@vercel/blob";
 
 export async function POST(request: NextRequest) {
-    const formData = await request.formData();
-    const file = formData.get('file') as File;
+  const formData = await request.formData();
+  const file = formData.get("file") as File;
 
-    if (!file) return NextResponse.json({error: "no file provided"}, {status: 400});
+  if (!file)
+    return NextResponse.json({ error: "no file provided" }, { status: 400 });
 
-    const blob = await put(file.name, file, {
-        access: "public"
-    })
+  const blob = await put(file.name, file, {
+    access: "public",
+    allowOverwrite: true,
+  });
 
-    return NextResponse.json({ url: blob.url }, {status: 200});
+  return NextResponse.json({ url: blob.url }, { status: 200 });
 }
