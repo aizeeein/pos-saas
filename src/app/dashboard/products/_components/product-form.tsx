@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { createProductSchema } from "../../../../../types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createProduct } from "@/lib/api/products";
+import { createProduct } from "@/queries/createProducts";
 import { toast } from "sonner";
 import { useCallback } from "react";
 import { useNewProduct } from "@/hooks/products/use-new-products";

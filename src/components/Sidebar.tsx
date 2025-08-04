@@ -7,8 +7,10 @@ import {
   HouseIcon,
   Layers2Icon,
   MenuIcon,
+  Package,
   SettingsIcon,
   ShoppingBagIcon,
+  ShoppingCart,
   UserIcon,
 } from "lucide-react";
 import Link from "next/link";
@@ -28,7 +30,12 @@ const routes = [
   {
     href: "dashboard/products",
     label: "Products",
-    icon: ShoppingBagIcon,
+    icon: ShoppingCart,
+  },
+  {
+    href: "dashboard/inventory",
+    label: "Inventory",
+    icon: Package,
   },
 ];
 

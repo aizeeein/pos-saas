@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   Sheet,
@@ -15,14 +15,14 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNewProduct } from "@/hooks/products/use-new-products";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createProduct } from "@/lib/api/products";
+import { createProduct } from "@/queries/createProducts";
 import { toast } from "sonner";
 import { ProductForms } from "./product-form";
 
 export const NewProductSheet = () => {
   const { isOpen, onClose } = useNewProduct();
 
-  console.log("isOpen from zustand: ", isOpen)
+  console.log("isOpen from zustand: ", isOpen);
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>

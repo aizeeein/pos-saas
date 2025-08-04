@@ -1,4 +1,4 @@
-import ProductCard from "@/components/product-card";
+import ProductCard from "@/app/dashboard/products/_components/product-card";
 import { SignOutButton } from "@/components/sign-out";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
@@ -13,9 +13,7 @@ export default async function Dashboard() {
 
   return (
     <div className="p-4">
-      <div>
-        Hello World
-      </div>
+      <div>Hello World</div>
     </div>
   );
 }
