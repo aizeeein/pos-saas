@@ -26,8 +26,10 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createProduct } from "@/queries/createProducts";
+import { BarLoader } from "react-spinners";
 
 const CreateProductDialog = () => {
+  const [isUploading, setIsUploading] = useState(false);
   const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
 
@@ -45,6 +47,7 @@ const CreateProductDialog = () => {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    setIsUploading(true);
     const formData = new FormData();
     formData.append("file", file);
 
@@ -55,11 +58,14 @@ const CreateProductDialog = () => {
 
     if (!res.ok) {
       toast.error("Failed to upload image");
+      setIsUploading(false);
+      return;
     }
 
     const { url } = await res.json();
     console.log("image URL: ", url);
     form.setValue("image", url);
+    setIsUploading(false);
   };
 
   const { mutate, isPending } = useMutation({
@@ -160,24 +166,45 @@ const CreateProductDialog = () => {
                     <FormItem>
                       <FormLabel>Image</FormLabel>
                       <FormControl>
-                        <Input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleImageUpload}
-                        />
+                        <div>
+                          <Input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageUpload}
+                            disabled={isUploading || isPending}
+                          />
+                          {isUploading && (
+                            <div className="flex justify-center items-center mt-2 p-4">
+                              <BarLoader color="#0040ff" height={7} />
+                            </div>
+                          )}
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 {form.watch("image") && (
-                  <img
-                    src={form.watch("image")}
-                    alt="Preview"
-                    className="rounded-md object-cover w-32 h-32"
-                  />
+                  <div className="relative flex justify-center items-center w-32 h-32 mx-auto">
+                    <img
+                      src={form.watch("image")}
+                      alt="Preview"
+                      className="rounded-md object-cover object-center w-full h-full"
+                    />
+                    <Button
+                      onClick={() => form.setValue("image", "")}
+                      type="button"
+                      className="absolute top-0 right-0 bg-white/70 hover:bg-white/100 text-red-600 rounded-full p-2 m-2"
+                    >
+                      X
+                    </Button>
+                  </div>
                 )}
-                <Button className="w-full" disabled={isPending} type="submit">
+                <Button
+                  className="w-full"
+                  disabled={isPending || isUploading}
+                  type="submit"
+                >
                   Create Product
                 </Button>
               </form>

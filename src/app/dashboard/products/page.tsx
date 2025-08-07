@@ -1,7 +1,6 @@
 "use client";
 
 import ProductCard from "@/app/dashboard/products/_components/product-card";
-import CreateProductDialog from "./_components/create-product-dialog";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -9,8 +8,8 @@ const ProductsPage = () => {
   return (
     <div className="flex flex-1 flex-col h-full">
       <div className="flex items-center justify-between">
-        <div>Product List</div>
-        <CreateProductDialog />
+        <div>Search Bar</div>
+        
       </div>
       <div className="h-full flex-1">
         <Suspense fallback={<UserProductSkeleton />}>

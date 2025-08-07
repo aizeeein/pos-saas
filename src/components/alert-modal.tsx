@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import Modal from "./ui/modal";
 import { Button } from "./ui/button";
+import { cn } from "@/lib/utils";
 
 interface AlertModalProps {
+  isCheckout?: boolean;
+  title?: string;
+  description?: string;
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
@@ -10,6 +14,9 @@ interface AlertModalProps {
 }
 
 export const AlertModal = ({
+  isCheckout,
+  title,
+  description,
   isOpen,
   onClose,
   onConfirm,
@@ -26,8 +33,10 @@ export const AlertModal = ({
   }
   return (
     <Modal
-      title="Apakah yakin akan menghapus?"
-      description="Data yang dihapus tidak dapat dikembalikan"
+      title={title ? title : "Apakah yakin akan menghapus?"}
+      description={
+        description ? description : "Data yang dihapus tidak dapat dikembalikan"
+      }
       isOpen={isOpen}
       onClose={onClose}
     >
@@ -35,7 +44,12 @@ export const AlertModal = ({
         <Button variant={"outline"} disabled={loading} onClick={onClose}>
           Cancel
         </Button>
-        <Button variant={"destructive"} disabled={loading} onClick={onConfirm}>
+        <Button
+          className={cn(isCheckout ? "bg-green-600 hover:bg-green-600/70" : "")}
+          disabled={loading}
+          variant={isCheckout ? "default" : "destructive"}
+          onClick={onConfirm}
+        >
           Continue
         </Button>
       </div>
