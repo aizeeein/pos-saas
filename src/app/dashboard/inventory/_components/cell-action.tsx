@@ -40,6 +40,7 @@ export const CellAction = ({ data }: CellActionProps) => {
       console.log("Product deleted:", data.id);
     } catch (error) {
       toast.error("Gagal menghapus produk");
+      console.error("Gagal menghapus produk", error);
     } finally {
       setIsLoading(false);
       setOpen(false);
