@@ -6,8 +6,8 @@ import React from "react";
 
 function Logo({
   fontSize = "2xl",
-  iconSize = 20,
-}: {
+}: // iconSize = 20,
+{
   fontSize?: string;
   iconSize?: number;
 }) {
@@ -16,7 +16,13 @@ function Logo({
       href="/"
       className={cn("text-2xl font-extrabold flex items-center", fontSize)}
     >
-      <Image src="/KOMIDA-02.svg" alt="logo" className="size-12 bg-transparent" width={2} height={4} />
+      <Image
+        src="/KOMIDA-02.svg"
+        alt="logo"
+        className="size-12 bg-transparent"
+        width={2}
+        height={4}
+      />
 
       <div>
         <span className="bg-gradient-to-r from-emerald-500 to bg-emerald-600 bg-clip-text text-transparent">

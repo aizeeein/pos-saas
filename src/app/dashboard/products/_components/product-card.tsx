@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { Button } from "@/components/ui/button";
 import { addToCart, decrementQty } from "@/store/cartSlice";
-import { useRouter } from "next/navigation";
 
 interface ProductProps {
   id: string;
@@ -25,16 +24,16 @@ const ProductCard = () => {
   const { data: products = [], isLoading } = useGetProducts();
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.items);
-  const router = useRouter();
+  // const router = useRouter();
 
   // Hitung total item, qty, dan total harga
-  const itemsArray = Object.values(cartItems);
-  const totalItems = itemsArray.length;
-  const totalQty = itemsArray.reduce((sum, i) => sum + i.quantity, 0);
-  const totalPrice = itemsArray.reduce(
-    (sum, i) => sum + i.quantity * i.price,
-    0
-  );
+  // const itemsArray = Object.values(cartItems);
+  // const totalItems = itemsArray.length;
+  // const totalQty = itemsArray.reduce((sum, i) => sum + i.quantity, 0);
+  // const totalPrice = itemsArray.reduce(
+  //   (sum, i) => sum + i.quantity * i.price,
+  //   0
+  // )
 
   if (isLoading) {
     return (

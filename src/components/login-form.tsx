@@ -42,6 +42,7 @@ const LoginForm = () => {
       router.push("/dashboard");
     } catch (error) {
       toast.error("Login failed");
+      console.error("Login failed", error);
     }
   };
   return (
