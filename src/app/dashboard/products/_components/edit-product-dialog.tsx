@@ -17,7 +17,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useEditProduct } from "@/queries/useEditProduct";
-import { Loader2 } from "lucide-react";
 import { BarLoader } from "react-spinners";
 
 interface EditProductDialogProps {
@@ -138,7 +137,7 @@ const EditProductDialog = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Image</FormLabel>
-                    <FormControl>                   
+                    <FormControl>
                       <div>
                         <Input
                           type="file"
@@ -173,7 +172,7 @@ const EditProductDialog = ({
                   </Button>
                 </div>
               )}
-              <Button className="w-full" disabled={isPending} type="submit">
+              <Button className="w-full" disabled={isPending || isUploading} type="submit">
                 Update Product
               </Button>
             </form>

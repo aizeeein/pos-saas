@@ -12,8 +12,6 @@ import { Button } from "@/components/ui/button";
 import { Edit, MoreHorizontal, TrashIcon } from "lucide-react";
 import { useState } from "react";
 import { AlertModal } from "@/components/alert-modal";
-import axios from "axios";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useDeleteProduct } from "@/queries/useDeleteProduct";
 import EditProductDialog from "../../products/_components/edit-product-dialog";
@@ -25,15 +23,15 @@ interface CellActionProps {
 export const CellAction = ({ data }: CellActionProps) => {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [editOpen, setEditOpen] = useState(false)
+  const [editOpen, setEditOpen] = useState(false);
   const deleteMutation = useDeleteProduct(data.id);
 
   const defaultValues = {
     name: data.name,
     price: data.price,
     stock: data.stock,
-    image: data.image
-  }
+    image: data.image,
+  };
 
   const onDelete = async () => {
     try {
@@ -56,7 +54,12 @@ export const CellAction = ({ data }: CellActionProps) => {
         onConfirm={onDelete}
         loading={isLoading}
       />
-      <EditProductDialog open={editOpen} productId={data.id} setOpen={setEditOpen} defaultValues={defaultValues} />
+      <EditProductDialog
+        open={editOpen}
+        productId={data.id}
+        setOpen={setEditOpen}
+        defaultValues={defaultValues}
+      />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant={"ghost"}>

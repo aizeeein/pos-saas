@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
-import { SheetProvider } from "./providers/sheet-provider";
 import { QueryProvider } from "./providers/query-provider";
 import NextTopLoader from "nextjs-toploader";
+import StoreProvider from "./providers/StoreProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,11 +32,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <QueryProvider>
-          <SheetProvider />
           <Toaster />
           <NextTopLoader />
-
-          {children}
+          <StoreProvider>{children}</StoreProvider>
         </QueryProvider>
       </body>
     </html>

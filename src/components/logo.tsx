@@ -1,9 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { SquareDashedMousePointer } from "lucide-react";
 import Image from "next/image";
-import alii from "@/public/alii.jpg";
-import komida from "KOMIDA-02.svg";
 import Link from "next/link";
 import React from "react";
 

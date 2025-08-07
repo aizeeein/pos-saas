@@ -4,14 +4,9 @@ import React, { useState } from "react";
 
 import {
   HomeIcon,
-  HouseIcon,
-  Layers2Icon,
   MenuIcon,
   Package,
-  SettingsIcon,
-  ShoppingBagIcon,
   ShoppingCart,
-  UserIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { Button, buttonVariants } from "./ui/button";
@@ -36,6 +31,11 @@ const routes = [
     href: "dashboard/inventory",
     label: "Inventory",
     icon: Package,
+  },
+  {
+    href: "dashboard/cart",
+    label: "Cart",
+    icon: ShoppingCart,
   },
 ];
 
@@ -79,7 +79,7 @@ export function MobileSidebar() {
   const [isOpen, setOpen] = useState(false);
   const pathname = usePathname();
 
-  const activeRoute = getActiveRoute(pathname, routes)
+  const activeRoute = getActiveRoute(pathname, routes);
 
   return (
     <div className="block border-separate bg-background md:hidden">

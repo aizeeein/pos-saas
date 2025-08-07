@@ -85,6 +85,22 @@ export const product = pgTable("product", {
   updatedAt: timestamp("updated_at")
     .$defaultFn(() => new Date())
     .notNull(),
-});
+})
 
-export const schema = { user, session, account, verification, product };
+export const order = pgTable("order", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  userId: text("user_id").notNull().references(() => user.id, {onDelete: "cascade"}),
+  total: integer("total").notNull(),
+  createdAt: timestamp("created_at")
+  .$defaultFn(() => new Date()).notNull(),
+})
+
+export const orderItem = pgTable("order_item", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  orderId: text("order_id").notNull().references(() => order.id, {onDelete: "cascade"}),
+  productId: text("product_id").notNull().references(() => product.id, {onDelete: "cascade"}),
+  quantity: integer("quantity").notNull(),
+  price: integer("price").notNull()
+})
+
+export const schema = { user, session, account, verification, product, order, orderItem };

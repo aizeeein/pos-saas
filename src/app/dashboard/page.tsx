@@ -1,5 +1,3 @@
-import ProductCard from "@/app/dashboard/products/_components/product-card";
-import { SignOutButton } from "@/components/sign-out";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
