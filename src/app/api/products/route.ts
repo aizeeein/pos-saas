@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
       })
       .returning();
     return NextResponse.json({ product: inserted[0] }, { status: 201 });
-  } catch (err: any) {
+  } catch (err) {
     if (err instanceof Error) {
       console.error(err.message);
     } else {
@@ -62,7 +62,7 @@ export async function GET() {
       .orderBy(asc(product.name));
 
     return NextResponse.json(products, { status: 200 });
-  } catch (err: any) {
+  } catch (err) {
     if (err instanceof Error) {
       console.error(err.message);
     } else {
