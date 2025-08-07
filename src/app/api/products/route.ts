@@ -37,14 +37,18 @@ export async function POST(req: NextRequest) {
       .returning();
     return NextResponse.json({ product: inserted[0] }, { status: 201 });
   } catch (err: any) {
-    console.error(err);
+    if (err instanceof Error) {
+      console.error(err.message);
+    } else {
+      console.error(err);
+    }
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   } finally {
     revalidatePath("/dashboard/products");
   }
 }
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const user = await getCurrentUser();
     if (!user) {
@@ -59,7 +63,11 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(products, { status: 200 });
   } catch (err: any) {
-    console.error(err);
+    if (err instanceof Error) {
+      console.error(err.message);
+    } else {
+      console.error(err);
+    }
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

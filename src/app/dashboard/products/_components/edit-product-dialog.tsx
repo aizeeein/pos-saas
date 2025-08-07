@@ -134,7 +134,7 @@ const EditProductDialog = ({
               <FormField
                 control={form.control}
                 name="image"
-                render={({ field }) => (
+                render={() => (
                   <FormItem>
                     <FormLabel>Image</FormLabel>
                     <FormControl>
@@ -172,7 +172,11 @@ const EditProductDialog = ({
                   </Button>
                 </div>
               )}
-              <Button className="w-full" disabled={isPending || isUploading} type="submit">
+              <Button
+                className="w-full"
+                disabled={isPending || isUploading}
+                type="submit"
+              >
                 Update Product
               </Button>
             </form>

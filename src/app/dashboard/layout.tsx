@@ -2,7 +2,6 @@
 
 import BreadCrumbHeader from "@/components/breadcrumb-header";
 import { CartDialog } from "@/components/cart-dialog";
-import { CartIcon } from "@/components/cartIcon";
 import DesktopSidebar from "@/components/Sidebar";
 import { Separator } from "@/components/ui/separator";
 
