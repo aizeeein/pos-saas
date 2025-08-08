@@ -33,6 +33,11 @@ const routes = [
     icon: Package,
   },
   {
+    href: "dashboard/orders",
+    label: "History",
+    icon: ShoppingCart,
+  },
+  {
     href: "dashboard/cart",
     label: "Cart",
     icon: ShoppingCart,

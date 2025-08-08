@@ -1,5 +1,18 @@
-'use client'
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import OrdersList from "./_components/orders-list";
+import { fetchOrders, ordersKeys } from "@/queries/orders/getOrders";
 
-export default function OrdersPage() {
-    
+export default async function OrdersPage() {
+    const qc = new QueryClient();
+    await qc.prefetchQuery({
+        queryKey: [ordersKeys.all],
+        queryFn: fetchOrders,
+    });
+
+    const state = dehydrate(qc)
+
+    return (
+        <OrdersList />
+    )
+
 }
