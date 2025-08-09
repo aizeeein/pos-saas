@@ -4,10 +4,20 @@ import { orderItem, orders, product } from "@/schema";
 import { desc, eq, inArray } from "drizzle-orm";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
+import { OrderItemView } from "../../../../types";
+
+type Row = {
+  orderId: string;
+  productId: string;
+  name: string | null;
+  image: string | null;
+  quantity: number;
+  price: number;
+};
 
 export async function GET() {
   const session = await auth.api.getSession({ headers: await headers() });
-  const userId = (session as any)?.user?.id ?? (session as any)?.userId;
+  const userId = session?.user.id;
 
   if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -26,7 +36,7 @@ export async function GET() {
   const orderIds = userOrders.map((o) => o.id);
 
   // Ambil item+produk sekali jalan, lalu kelompokkan
-  const itemRows = await db
+  const rows: Row[] = await db
     .select({
       orderId: orderItem.orderId,
       productId: orderItem.productId,
@@ -39,20 +49,18 @@ export async function GET() {
     .leftJoin(product, eq(orderItem.productId, product.id))
     .where(inArray(orderItem.orderId, orderIds));
 
-  const itemsByOrder = new Map<string, any[]>();
-  for (const row of itemRows) {
-    const list = itemsByOrder.get(row.orderId) ?? [];
-    list.push({
-      productId: row.productId,
-      quantity: row.quantity,
-      price: row.price,
-      product: {
-        id: row.productId,
-        name: row.name,
-        image: row.image,
-      },
+  const itemsByOrder = new Map<string, OrderItemView[]>();
+  for (const r of rows) {
+    const arr = itemsByOrder.get(r.orderId) ?? [];
+    arr.push({
+      productId: r.productId,
+      name: r.name,
+      image: r.image,
+      quantity: r.quantity,
+      price: r.price,
+      subtotal: r.price * r.quantity,
     });
-    itemsByOrder.set(row.orderId, list);
+    itemsByOrder.set(r.orderId, arr);
   }
 
   const result = userOrders.map((o) => ({

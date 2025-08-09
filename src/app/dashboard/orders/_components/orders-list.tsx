@@ -20,7 +20,7 @@ export default function OrdersList() {
     <div className="p-4 space-y-4">
       <h1 className="text-2xl font-bold">Riwayat Pesanan</h1>
       <div className="grid gap-4">
-        {orders.map((o: any) => (
+        {orders.map((o) => (
           <Card key={o.id} className="hover:shadow-lg">
             <CardContent className="flex justify-between items-center">
               <div>

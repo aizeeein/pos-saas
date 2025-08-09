@@ -17,3 +17,12 @@ export const editProductSchema = z.object({
 })
 
 export type editProductSchemaType = z.infer<typeof editProductSchema>;
+
+export type OrderItemView = {
+  productId: string;
+  quantity: number;
+  price: number;            // harga saat transaksi
+  name: string | null;
+  image: string | null;
+  subtotal: number;         // price * quantity
+};
