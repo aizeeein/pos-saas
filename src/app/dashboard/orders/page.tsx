@@ -1,4 +1,4 @@
-import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 import OrdersList from "./_components/orders-list";
 import { fetchOrders, ordersKeys } from "@/queries/orders/getOrders";
 
