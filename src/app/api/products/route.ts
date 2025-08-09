@@ -13,11 +13,11 @@ export async function POST(req: NextRequest) {
       headers: await headers(),
     });
 
-    if (!session) {
+    const userId = session?.user.id
+
+    if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-
-    const userId = session?.user.id;
     const body = await req.json();
 
     const { name, price, stock, image } = body;

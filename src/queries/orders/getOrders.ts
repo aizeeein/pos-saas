@@ -42,7 +42,7 @@ export async function fetchOrders(): Promise<OrderDTO[]> {
 
     if (typeof window === "undefined") {
         const {cookies} = await import("next/headers");
-        init.headers = {cookie: cookies().toString()}
+        init.headers = {cookie: (await cookies()).toString()}
     }
 
     return fetchJSON<OrderDTO[]>("/api/orders", init)
@@ -56,7 +56,7 @@ export async function fetchOrder(orderId: string): Promise<OrderDTO> {
     }
     if (typeof window === "undefined") {
     const { cookies } = await import("next/headers");
-    init.headers = { cookie: cookies().toString() };
+    init.headers = { cookie: (await cookies()).toString() };
   }
    return fetchJSON<OrderDTO>(`/api/orders/${orderId}`, init)
 }

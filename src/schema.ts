@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm";
 import {
   pgTable,
   text,
@@ -10,15 +11,13 @@ export const user = pgTable("user", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
-  emailVerified: boolean("email_verified")
-    .$defaultFn(() => false)
-    .notNull(),
+  emailVerified: boolean("email_verified").default(false).notNull(),
   image: text("image"),
   createdAt: timestamp("created_at")
-    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .default(sql`now()`)
     .notNull(),
   updatedAt: timestamp("updated_at")
-    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .default(sql`now()`)
     .notNull(),
 });
 
@@ -58,12 +57,12 @@ export const verification = pgTable("verification", {
   identifier: text("identifier").notNull(),
   value: text("value").notNull(),
   expiresAt: timestamp("expires_at").notNull(),
-  createdAt: timestamp("created_at").$defaultFn(
-    () => /* @__PURE__ */ new Date()
-  ),
-  updatedAt: timestamp("updated_at").$defaultFn(
-    () => /* @__PURE__ */ new Date()
-  ),
+  createdAt: timestamp("created_at")
+    .default(sql`now()`)
+    .notNull(),
+  updatedAt: timestamp("updated_at")
+    .default(sql`now()`)
+    .notNull(),
 });
 
 export const product = pgTable("product", {
@@ -80,14 +79,14 @@ export const product = pgTable("product", {
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
   createdAt: timestamp("created_at")
-    .$defaultFn(() => new Date())
+    .default(sql`now()`)
     .notNull(),
   updatedAt: timestamp("updated_at")
-    .$defaultFn(() => new Date())
+    .default(sql`now()`)
     .notNull(),
 });
 
-export const orders = pgTable("order", {
+export const orders = pgTable("orders", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
@@ -96,7 +95,7 @@ export const orders = pgTable("order", {
     .references(() => user.id, { onDelete: "cascade" }),
   total: integer("total").notNull(),
   createdAt: timestamp("created_at")
-    .$defaultFn(() => new Date())
+    .default(sql`now()`)
     .notNull(),
 });
 
