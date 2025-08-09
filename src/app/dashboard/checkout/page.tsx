@@ -30,27 +30,41 @@ export default function CheckoutPage() {
     setIsProcessing(true);
 
     // Update database
+    try {
     const res = await fetch("/api/checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(
-        items.map((i) => ({ id: i.id, quantity: i.quantity }))
-      ),
-    });
-    setIsProcessing(false);
+      body: JSON.stringify({
+        items: items.map((i) => ({id: i.id, quantity: i.quantity})),
+      }),
+    })
+    
+    const data = await res.json().catch(() => null)
 
     if (!res.ok) {
-      const error = await res.json();
-      toast.error(error || "Failed to place order");
-      return;
+      if (res.status === 409 && data?.code === "INSUFFICIENT_STOCK") {
+        toast.error(
+          `Stok ${data?.productId ?? ""} tidak cukup. Tersedia: ${data?.available ?? 0}`
+        );
+      } else {
+        toast.error(data?.error ?? "Failed to place order");
+      }
+      return;      
     }
 
     queryClient.invalidateQueries({ queryKey: ["products"] });
     // Kosongkan keranjang
+    
     dispatch(clearCart());
     toast.success("Pesanan berhasil dibuat!");
     router.push("/dashboard/products");
-  };
+  } catch {
+    toast.error("Network error")
+  } finally {
+    setIsProcessing(false)
+    setOpen(false)
+  }
+}
 
   return (
     <>

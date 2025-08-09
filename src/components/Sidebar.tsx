@@ -3,9 +3,11 @@
 import React, { useState } from "react";
 
 import {
+  BookOpenCheck,
   HomeIcon,
   MenuIcon,
   Package,
+  ShoppingBag,
   ShoppingCart,
 } from "lucide-react";
 import Link from "next/link";
@@ -25,7 +27,7 @@ const routes = [
   {
     href: "dashboard/products",
     label: "Products",
-    icon: ShoppingCart,
+    icon: ShoppingBag,
   },
   {
     href: "dashboard/inventory",
@@ -35,7 +37,7 @@ const routes = [
   {
     href: "dashboard/orders",
     label: "History",
-    icon: ShoppingCart,
+    icon: BookOpenCheck,
   },
   {
     href: "dashboard/cart",
